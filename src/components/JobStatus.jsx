@@ -8,25 +8,33 @@ const JobStatus = ({ jobId, status, onRefresh }) => {
     const progress = status?.result ? 100 : (status?.progress || 0);
     const isComplete = progress === 100;
 
+    const handleRefresh = () => {
+        onRefresh();
+        // Only reset timer if auto-refresh is still enabled
+        if (autoRefresh) {
+            startTimeRef.current = Date.now();
+        }
+    };
+
     useEffect(() => {
-        const refreshStatus = () => {
+        const checkTimeAndRefresh = () => {
             const currentTime = Date.now();
             const elapsedTime = (currentTime - startTimeRef.current) / 1000;
 
             if (elapsedTime > 300) {
                 setAutoRefresh(false);
-                alert("Process exceeded 5 minutes time limit");
+                alert("Auto-refresh disabled: Process exceeded 5 minutes time limit. You can still refresh manually.");
                 return;
             }
 
             if (autoRefresh && !isComplete) {
-                onRefresh();
-                timeoutId.current = setTimeout(refreshStatus, 5000);
+                handleRefresh();
+                timeoutId.current = setTimeout(checkTimeAndRefresh, 5000);
             }
         };
 
         if (autoRefresh && !isComplete) {
-            timeoutId.current = setTimeout(refreshStatus, 5000);
+            timeoutId.current = setTimeout(checkTimeAndRefresh, 5000);
         }
 
         return () => {
@@ -44,9 +52,8 @@ const JobStatus = ({ jobId, status, onRefresh }) => {
                 <h3>Analysis Result:</h3>
                 {!isComplete && (
                     <button 
-                        onClick={() => onRefresh()} 
+                        onClick={handleRefresh} 
                         className="refresh-btn"
-                        disabled={!autoRefresh}
                     >
                         Refresh Status
                     </button>

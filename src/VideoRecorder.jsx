@@ -105,16 +105,20 @@ const VideoRecorder = () => {
                     recordedVideo={recordedVideo}
                     onProcess={handleProcessVideo}
                 />
+                
+                {/* Progress bar moved here */}
+                {currentJobId && jobStatus && (
+                    <div className="progress-section">
+                        <Progress progress={progress} isLoading={!jobStatus?.result} />
+                    </div>
+                )}
+
                 {apiResponse && (
                     <>
                         <ApiResponse response={apiResponse} />
-                        {currentJobId && jobStatus && (
-                            <div className="progress-section">
-                                <Progress progress={progress} isLoading={!jobStatus?.result} />
-                            </div>
-                        )}
                     </>
                 )}
+                
                 {currentJobId && jobStatus && (
                     <JobStatus 
                         jobId={currentJobId}
