@@ -1,0 +1,792 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --primary-color: #4f46e5;
+  --secondary-color: #818cf8;
+  --background-dark: #1e1e2e;
+  --text-light: #f8fafc;
+  --text-dark: #64748b;
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    overflow: hidden;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.button-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.video-controls {
+    width: 800px;  /* Match video width */
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.video-player {
+    width: 800px;  /* Fixed width for video container */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.video-player,
+.recorded-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.live-player {
+    width: 800px;  /* Fixed width */
+    height: 450px;  /* 16:9 aspect ratio */
+    object-fit: cover;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background-color: #2a2a3c;
+    margin-bottom: 30px;
+}
+.recorded-player video {
+    width: 800px;  /* Fixed width */
+    height: 450px;  /* 16:9 aspect ratio */
+    object-fit: cover;
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background-color: #2a2a3c;
+    margin-bottom: 30px;
+}
+
+.recorder-container {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--background-dark);
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.recorder-main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    width: 1000px;
+    margin: 0 auto;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for recorder-main */
+.recorder-main::-webkit-scrollbar {
+    width: 8px;
+}
+
+.recorder-main::-webkit-scrollbar-track {
+    background: var(--background-dark);
+}
+
+.recorder-main::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.recorder-main::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+.video-player,
+.recorded-player,
+.video-controls,
+.api-response,
+.job-status {
+    width: 100%;
+    max-width: 100%; /* Ensure elements don't exceed container width */
+}
+
+.recorder-main h2 {
+    color: var(--text-light);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.video-controls button,
+.video-actions button,
+.video-actions .download-button {
+    background: var(--primary-color);
+    color: var(--text-light);
+    font-weight: 500;
+    padding: 0.5em 1em;
+    height: 32px;
+    border-radius: 6px;
+    transition: var(--transition);
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.875em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.video-actions button,
+.video-actions .download-button {
+    height: 32px;
+    padding: 0.5em 1em;
+    font-size: 0.875em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.video-actions .download-button {
+    background: var(--text-dark);
+}
+
+.video-actions button:hover,
+.video-actions .download-button:hover {
+    transform: translateY(-1px);
+    background: var(--secondary-color);
+}
+
+.video-actions .download-button {
+    background: var(--text-dark);
+}
+
+.video-controls button:hover,
+.video-actions button:hover,
+.video-actions .download-button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Remove these old styles since they're now part of the modal */
+.video-list h3,
+.video-list {
+    display: none;
+}
+
+.video-items {
+    display: grid;  /* Keep only the grid display version for the modal */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    max-height: calc(90vh - 70px);
+    overflow-y: auto;
+}
+
+.video-item {
+    border: 1px solid #646cff;
+    padding: 30px 10px 10px 10px; /* Increased top padding to make room for delete button */
+    border-radius: 8px;
+    position: relative;
+    background: rgba(79, 70, 229, 0.15);  /* Slightly increased opacity for more contrast */
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 35px 15px 15px;
+    transition: var(--transition);
+}
+
+.video-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.video-item .video-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.video-item .video-actions button,
+.video-item .video-actions a {
+    height: 32px;
+    padding: 0.5em 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.875em;
+    transition: var(--transition);
+}
+
+.video-item .video-actions .download-button {
+    background: var(--text-dark);
+}
+
+.video-item .video-actions .download-button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.video-item .delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    line-height: 1;
+}
+
+.video-item .delete-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    color: #fef2f2;
+    transform: translateY(-1px);
+}
+
+/* Add custom scrollbar styles */
+.video-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.video-items::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.video-items::-webkit-scrollbar-thumb {
+    background: #646cff;
+    border-radius: 3px;
+}
+
+.video-items::-webkit-scrollbar-thumb:hover {
+    background: #535bf2;
+}
+
+.video-item video {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: calc(var(--border-radius) - 4px);
+    background-color: #1a1a2e;  /* Darker background for video element */
+}
+
+.video-item p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.video-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.recorded-player a {
+    margin-top: 1rem;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.8em 1.6em;
+    border-radius: var(--border-radius);
+    background: var(--text-dark);
+    transition: var(--transition);
+}
+
+recorded-player a:hover {
+    background: var(--secondary-color);
+}
+
+.main-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 1rem;
+    align-items: stretch; /* Changed from center to stretch */
+}
+
+.main-actions button,
+.main-actions a {
+    padding: 0.8em 1.6em;
+    margin: 0;
+    line-height: 1;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    background: var(--primary-color);
+}
+
+.main-actions a {
+    background: var(--text-dark);
+    text-decoration: none;
+    color: var(--text-light);
+}
+
+.progress-section {
+    width: 800px;
+    margin: 1rem auto;
+    order: 1;
+}
+
+.progress-container {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(79, 70, 229, 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+}
+
+.progress-container {
+    width: 800px;  /* Match video width */
+    margin: 0 auto 1rem;
+    padding: 1rem;
+    background: rgba(79, 70, 229, 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #1a1a2e;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease-in-out;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.api-response {
+    width: 800px;
+    margin: 2rem auto 0;
+    order: 0;
+    padding: 1rem;
+    background: rgba(79, 70, 229, 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+}
+
+.api-response h3 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.api-response pre {
+    background: #1a1a2e;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    overflow-x: auto;
+    color: var(--text-light);
+    text-align: left;
+}
+
+.job-status {
+    width: 800px;  /* Match video width */
+    margin: 2rem auto;
+    padding: 1rem;
+    background: rgba(79, 70, 229, 0.1);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+}
+
+.job-status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.job-status h3 {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.refresh-btn {
+    background: var(--primary-color);
+    color: var(--text-light);
+    padding: 0.5em 1em;
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+}
+
+.job-details {
+    background: #1a1a2e;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+.job-details p {
+    margin: 0 0 1rem 0;
+    color: var(--text-light);
+}
+
+.status-content {
+    overflow-x: auto;
+}
+
+.status-content pre {
+    margin: 0;
+    color: var(--text-light);
+    text-align: left;
+}
+
+.side-navigation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100vh;
+    background-color: #1a1a2e;
+    border-right: 1px solid var(--primary-color);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.nav-header {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+}
+
+.nav-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--text-light);
+}
+
+.nav-links {
+    padding: 0;
+}
+
+.nav-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    padding: 0;
+    margin: 0;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-icon {
+    margin-right: 12px;
+    width: 24px;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.nav-link:hover {
+    background-color: rgba(79, 70, 229, 0.1);
+}
+
+.active-link {
+    background-color: var(--primary-color);
+    font-weight: 500;
+}
+
+.active-link:hover {
+    background-color: var(--primary-color);
+}
+
+.profile-container {
+    padding: 2rem;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--background-dark);
+}
+
+.profile-container h2 {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.profile-form {
+    background: rgba(79, 70, 229, 0.1);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary-color);
+    background: var(--background-dark);
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.update-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.update-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.video-list-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.video-list-modal {
+    background-color: var(--background-dark);
+    border-radius: var(--border-radius);
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--text-light);
+}
+
+.close-modal-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+.close-modal-btn:hover {
+    color: var(--primary-color);
+}
+
+.video-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    max-height: calc(90vh - 70px);
+    overflow-y: auto;
+}
+
+.video-list-trigger {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 0.8em 1.6em;
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 100;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.video-list-trigger:hover {
+    transform: translateY(-2px);
+    background-color: var(--secondary-color);
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: var(--background-dark);
+    overflow: hidden;
+}
+
+.main-content {
+    flex: 1;
+    width: calc(100% - 200px);
+    padding-left: 200px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for main content */
+.main-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+    background: var(--background-dark);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
