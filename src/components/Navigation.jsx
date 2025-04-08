@@ -22,6 +22,17 @@ const Navigation = () => {
                     </li>
                     <li>
                         <NavLink 
+                            to="/consultant" 
+                            className={({ isActive }) => 
+                                `nav-link ${isActive ? 'active-link' : ''}`
+                            }
+                        >
+                            <span className="nav-icon">👨‍⚕️</span>
+                            <span>Consultant</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink 
                             to="/profile" 
                             className={({ isActive }) => 
                                 `nav-link ${isActive ? 'active-link' : ''}`
