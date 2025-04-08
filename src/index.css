@@ -837,3 +837,188 @@ recorded-player a:hover {
     color: var(--text-light);
     font-size: 1rem;
 }
+
+.stress-analysis {
+    padding: 1.5rem;
+    background: rgba(79, 70, 229, 0.05);
+    border-radius: var(--border-radius);
+    margin-top: 1.5rem;
+}
+
+.stress-analysis h4 {
+    color: var(--text-light);
+    margin: 0 0 1.5rem 0;
+    font-size: 1.25rem;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.analysis-card {
+    background: var(--background-dark);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+    padding: 1rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-header h5 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.model-icon {
+    font-size: 1.25rem;
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.metric {
+    margin-bottom: 1rem;
+}
+
+.metric span:first-child {
+    color: var(--text-dark);
+    font-size: 0.875rem;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.prediction {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.prediction.stress {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.prediction.no-stress {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.probability-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+.probability-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.probability-text {
+    position: absolute;
+    right: 0;
+    top: -1.5rem;
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    padding: 0.5rem;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: var(--border-radius);
+}
+
+.overall-summary {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+}
+
+.overall-summary h5 {
+    color: var(--text-light);
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.overall-summary p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.confidence-level {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-dark);
+}
+
+.confidence-high {
+    color: #22c55e;
+    font-weight: 500;
+}
+
+.confidence-medium {
+    color: #f59e0b;
+    font-weight: 500;
+}
+
+.confidence-low {
+    color: #ef4444;
+    font-weight: 500;
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.combined-score {
+    font-size: 1rem;
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.risk-level {
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+.risk-minimal {
+    color: #22c55e;
+    font-weight: 500;
+}
+
+.risk-moderate {
+    color: #f59e0b;
+    font-weight: 500;
+}
+
+.risk-high {
+    color: #ef4444;
+    font-weight: 500;
+}
+
+.risk-severe {
+    color: #dc2626;
+    font-weight: 700;
+}

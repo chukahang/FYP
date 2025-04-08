@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import StressAnalysis from './StressAnalysis';
 
 const JobStatus = ({ jobId, status, onRefresh }) => {
     const [autoRefresh, setAutoRefresh] = useState(true);
@@ -70,9 +71,9 @@ const JobStatus = ({ jobId, status, onRefresh }) => {
                         <span className="progress-text">{progress}%</span>
                     </div>
                 </div>
-                <div className="status-content">
-                    <pre>{JSON.stringify(status, null, 2)}</pre>
-                </div>
+                {status?.result && (
+                    <StressAnalysis result={status.result} />
+                )}
             </div>
         </div>
     );
