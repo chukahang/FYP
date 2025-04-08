@@ -4,9 +4,21 @@ import UserProfile from './components/UserProfile';
 import Navigation from './components/Navigation';
 
 function App() {
+    const handleClearCache = () => {
+        localStorage.clear();
+        window.location.reload();
+    };
+
     return (
         <Router>
             <div className="app-container">
+                <button 
+                    className="clear-cache-btn fixed"
+                    onClick={handleClearCache}
+                    title="Clear all cached data"
+                >
+                    Clear Cache
+                </button>
                 <Navigation />
                 <main className="main-content">
                     <Routes>
