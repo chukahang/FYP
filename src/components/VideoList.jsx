@@ -45,10 +45,14 @@ const VideoList = ({ videos, onVideoSelect, onVideoDelete }) => {
                                         }}>
                                             Play
                                         </button>
-                                        <button 
-                                            onClick={() => window.location.href = video.url}
+                                        <button
                                             className="download-button"
-                                            download="recorded-video.mp4"
+                                            onClick={() => {
+                                                const link = document.createElement('a');
+                                                link.href = video.url;
+                                                link.download = "recorded-video.mp4";
+                                                link.click();
+                                            }}
                                         >
                                             Download
                                         </button>

@@ -16,9 +16,13 @@ const VideoPlayer = ({ liveVideoFeed, recordedVideo, onProcess }) => {
                             Process Video
                         </button>
                         <button 
-                            onClick={() => window.location.href = recordedVideo}
                             className="download-button"
-                            download="recorded-video.mp4"
+                            onClick={() => {
+                                const link = document.createElement('a');
+                                link.href = recordedVideo;
+                                link.download = "recorded-video.mp4";
+                                link.click();
+                            }}
                         >
                             Download Recording
                         </button>
