@@ -8,6 +8,7 @@ import VideoList from './components/VideoList';
 import ApiResponse from './components/ApiResponse';
 import JobStatus from './components/JobStatus';
 import Progress from './components/Progress';
+import UploadStatus from './components/UploadStatus';
 
 const VideoRecorder = () => {
     const [recordedVideo, setRecordedVideo] = useCache('recordedVideo', null);
@@ -16,6 +17,8 @@ const VideoRecorder = () => {
     const [currentJobId, setCurrentJobId] = useCache('currentJobId', null);
     const [jobStatus, setJobStatus] = useCache('jobStatus', null);
     const [progress, setProgress] = useCache('uploadProgress', 0);
+    const [uploadSuccess, setUploadSuccess] = useCache('uploadSuccess', false);
+    const [isProcessing, setIsProcessing] = useCache('isProcessing', false);
     const liveVideoFeed = useRef(null);
 
     const {
@@ -49,6 +52,8 @@ const VideoRecorder = () => {
 
     const handleProcessVideo = async (videoUrl) => {
         try {
+            setIsProcessing(true);
+            setUploadSuccess(false);
             setProgress(0); // Reset progress
             const response = await fetch(videoUrl);
             const videoBlob = await response.blob();
@@ -61,10 +66,12 @@ const VideoRecorder = () => {
                 setJobStatus(data);
                 setApiResponse(data);
                 setProgress(data.progress || 0);
+                setUploadSuccess(true);
             }
         } catch (error) {
             setApiResponse({ error: error.message });
             setProgress(0);
+            setUploadSuccess(false);
         }
     };
 
@@ -105,27 +112,26 @@ const VideoRecorder = () => {
                     recordedVideo={recordedVideo}
                     onProcess={handleProcessVideo}
                 />
-                
-                {/* Progress bar moved here */}
-                {currentJobId && jobStatus && (
-                    <div className="progress-section">
-                        <Progress progress={progress} isLoading={!jobStatus?.result} />
-                    </div>
-                )}
-
-                {apiResponse && (
-                    <>
-                        <ApiResponse response={apiResponse} />
-                    </>
-                )}
-                
-                {currentJobId && jobStatus && (
-                    <JobStatus 
-                        jobId={currentJobId}
-                        status={jobStatus}
-                        onRefresh={refreshJobStatus}
-                    />
-                )}
+                <div className="results-section">
+                    {isProcessing && (
+                        <>
+                            <UploadStatus 
+                                isSuccess={uploadSuccess} 
+                                message={uploadSuccess ? "Video uploaded successfully!" : "Uploading video..."}
+                            />
+                            <div className="progress-section">
+                                <Progress progress={progress} isLoading={!jobStatus?.result} />
+                            </div>
+                        </>
+                    )}
+                    {apiResponse && currentJobId && jobStatus && (
+                        <JobStatus 
+                            jobId={currentJobId}
+                            status={jobStatus}
+                            onRefresh={refreshJobStatus}
+                        />
+                    )}
+                </div>
             </div>
             <VideoList
                 videos={videoList}
