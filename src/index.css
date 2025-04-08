@@ -1022,3 +1022,33 @@ recorded-player a:hover {
     color: #dc2626;
     font-weight: 700;
 }
+
+.clear-cache-btn.fixed {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1001;
+    background-color: rgba(239, 68, 68, 0.7);  /* Reduced opacity from 0.9 to 0.7 */
+    color: rgba(255, 255, 255, 0.9);  /* Slightly dimmed text */
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+    border: 1px solid rgba(239, 68, 68, 0.8);  /* Softened border */
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);  /* Reduced shadow intensity */
+}
+
+.clear-cache-btn.fixed:hover {
+    background-color: rgba(239, 68, 68, 0.85);  /* Dimmed hover state */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);  /* Slightly reduced hover shadow */
+}
+
+.clear-cache-btn.fixed::before {
+    content: '🗑️';
+    font-size: 1rem;
+}
