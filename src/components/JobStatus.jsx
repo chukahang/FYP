@@ -13,9 +13,9 @@ const JobStatus = ({ jobId, status, onRefresh }) => {
             const currentTime = Date.now();
             const elapsedTime = (currentTime - startTimeRef.current) / 1000;
 
-            if (elapsedTime > 180) {
+            if (elapsedTime > 300) {
                 setAutoRefresh(false);
-                alert("Process exceeded 3 minutes time limit");
+                alert("Process exceeded 5 minutes time limit");
                 return;
             }
 
@@ -54,6 +54,15 @@ const JobStatus = ({ jobId, status, onRefresh }) => {
             </div>
             <div className="job-details">
                 <p><strong>Job ID:</strong> {jobId}</p>
+                <div className="progress-bar-wrapper">
+                    <div className="progress-bar-container">
+                        <div 
+                            className="progress-bar"
+                            style={{ width: `${progress}%` }}
+                        />
+                        <span className="progress-text">{progress}%</span>
+                    </div>
+                </div>
                 <div className="status-content">
                     <pre>{JSON.stringify(status, null, 2)}</pre>
                 </div>

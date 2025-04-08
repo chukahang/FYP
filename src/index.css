@@ -420,22 +420,16 @@ recorded-player a:hover {
 }
 
 .progress-section {
-    width: 800px;
-    margin: 1rem auto;
+    width: 800px;  /* Match other components width */
+    margin: 2rem auto 0;
     order: 1;
+    display: flex;
+    justify-content: center;  /* Center the container */
 }
 
 .progress-container {
-    width: 100%;
-    padding: 1rem;
-    background: rgba(79, 70, 229, 0.1);
-    border: 1px solid var(--primary-color);
-    border-radius: var(--border-radius);
-}
-
-.progress-container {
-    width: 800px;  /* Match video width */
-    margin: 0 auto 1rem;
+    width: 800px;  /* Match video width exactly */
+    margin: 0;  /* Remove any auto margins */
     padding: 1rem;
     background: rgba(79, 70, 229, 0.1);
     border: 1px solid var(--primary-color);
