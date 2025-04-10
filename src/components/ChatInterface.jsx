@@ -45,7 +45,7 @@ const ChatInterface = () => {
             // Send message to backend and get response
             const response = await sendChatMessage(currentInput);
             
-            // Add bot response to chat
+            // Add bot response to chat without any processing
             const botResponse = {
                 id: messages.length + 2,
                 content: response.content,

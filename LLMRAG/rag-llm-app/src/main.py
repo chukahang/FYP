@@ -4,6 +4,8 @@ from data_loader.pdf_loader import PDFLoader
 from embeddings.model import EmbeddingModel
 from retriever.vector_store import VectorStore
 from llm.huggingface import HuggingFaceLLM
+import transformers
+transformers.logging.set_verbosity_error()  # Disable the transformers progress bar
 
 class RAGSystem:
     def __init__(self):
