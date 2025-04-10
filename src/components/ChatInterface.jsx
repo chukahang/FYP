@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { sendMessage } from '../services/chatService';
+import { sendChatMessage } from '../services/api';
 import './ChatInterface.css';
 
 const ChatInterface = () => {
@@ -26,7 +26,7 @@ const ChatInterface = () => {
     const handleSendMessage = async (e) => {
         e.preventDefault();
         
-        if (!input.trim()) return;
+        if (!input.trim() || isLoading) return;
         
         // Add user message to chat
         const userMessage = {
@@ -37,12 +37,13 @@ const ChatInterface = () => {
         };
         
         setMessages(prev => [...prev, userMessage]);
-        setInput('');
+        const currentInput = input; // Store the current input
+        setInput(''); // Clear input field but allow user to type new message
         setIsLoading(true);
         
         try {
             // Send message to backend and get response
-            const response = await sendMessage(input);
+            const response = await sendChatMessage(currentInput);
             
             // Add bot response to chat
             const botResponse = {
@@ -109,16 +110,16 @@ const ChatInterface = () => {
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Type your message here..."
-                    disabled={isLoading}
-                    className="chat-input"
+                    placeholder={isLoading ? "Wait for response..." : "Type your message here..."}
+                    disabled={false} // Allow typing even during loading
+                    className={`chat-input ${isLoading ? 'chat-input-waiting' : ''}`}
                 />
                 <button 
                     type="submit" 
-                    disabled={isLoading || !input.trim()}
-                    className="send-button"
+                    disabled={isLoading || !input.trim()} // Disable send button during loading
+                    className={`send-button ${isLoading ? 'send-button-disabled' : ''}`}
                 >
-                    Send
+                    {isLoading ? 'Wait' : 'Send'}
                 </button>
             </form>
         </div>

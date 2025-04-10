@@ -115,6 +115,11 @@
     border-color: var(--primary-color);
 }
 
+.chat-input-waiting {
+    border-color: #818cf8;
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
 .send-button {
     margin-left: 8px;
     background-color: var(--primary-color);
@@ -130,9 +135,10 @@
     background-color: var(--secondary-color);
 }
 
-.send-button:disabled {
+.send-button-disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    background-color: #64748b;
 }
 
 /* Loading animation */
