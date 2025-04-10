@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'http://localhost:8000'; // Keep this for your existing API
+const RAG_API_URL = 'http://localhost:5000';  // Add this for the RAG LLM API
 
 export const processVideoApi = async (videoBlob) => {
     try {
@@ -29,5 +30,31 @@ export const getJobStatus = async (jobId) => {
         return await response.json();
     } catch (error) {
         throw new Error(`Failed to get job status: ${error.message}`);
+    }
+};
+
+// Actual API call to the RAG LLM backend
+export const sendChatMessage = async (message) => {
+    try {
+        const response = await fetch(`${RAG_API_URL}/api/v1/chat`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                query: message,
+                history: [] // You can implement chat history if needed
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error sending chat message:', error);
+        throw new Error(`Failed to get response: ${error.message}`);
     }
 };

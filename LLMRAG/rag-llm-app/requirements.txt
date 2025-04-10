@@ -1,0 +1,21 @@
+# RAG system dependencies
+sentence-transformers>=2.2.0
+PyPDF2>=3.0.0
+transformers>=4.28.0
+torch>=1.13.0
+numpy>=1.23.0
+
+# API server dependencies
+fastapi>=0.95.0
+uvicorn>=0.21.0
+pydantic>=1.10.0
+python-multipart>=0.0.6
+
+langchain
+langchain-community
+faiss-cpu
+huggingface_hub
+python-dotenv
+accelerate>=0.26.0
+bitsandbytes>=0.41.0
+einops
