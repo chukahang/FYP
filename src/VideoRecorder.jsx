@@ -98,7 +98,7 @@ const VideoRecorder = () => {
     return (
         <div className="recorder-container">
             <div className="recorder-main" style={{ width: '100%', maxWidth: '100%', margin: 0 }}>
-                <h2>Video Recorder</h2>
+                <h2>Stress Detection</h2>
                 <VideoControls
                     permission={permission}
                     recordingStatus={recordingStatus}

@@ -4,7 +4,7 @@ const Navigation = () => {
     return (
         <nav className="side-navigation">
             <div className="nav-header">
-                <h1>Video Analysis</h1>
+                <h1>Stress Analyser</h1>
             </div>
             <div className="nav-links">
                 <ul>
