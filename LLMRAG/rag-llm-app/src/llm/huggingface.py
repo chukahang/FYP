@@ -59,7 +59,7 @@ class HuggingFaceLLM:
             with torch.no_grad():
                 outputs = self.model.generate(
                     **inputs,
-                    max_new_tokens=300,  # Shorter, more focused responses
+                    max_new_tokens=200,  # Shorter, more focused responses
                     min_new_tokens=20,
                     temperature=0.8,
                     do_sample=True,

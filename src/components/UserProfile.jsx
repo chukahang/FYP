@@ -1,21 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useCache from '../hooks/useCache';
 
 const UserProfile = () => {
-    const [profile, setProfile] = useCache('userProfile', {
+    // Get saved profile from cache
+    const [savedProfile, setSavedProfile] = useCache('userProfile', {
         age: '',
         sex: '',
         occupation: ''
     });
 
+    // Local state for form inputs that won't affect cache until submission
+    const [formData, setFormData] = useState(savedProfile);
+
+    // Update local form data when cached profile changes
+    useEffect(() => {
+        setFormData(savedProfile);
+    }, [savedProfile]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Profile updated:', profile);
+        // Only update the cache when form is submitted
+        setSavedProfile(formData);
+        console.log('Profile updated:', formData);
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setProfile(prev => ({
+        // Only update the local state, not the cache
+        setFormData(prev => ({
             ...prev,
             [name]: value
         }));
@@ -32,7 +44,7 @@ const UserProfile = () => {
                             type="number"
                             id="age"
                             name="age"
-                            value={profile.age}
+                            value={formData.age}
                             onChange={handleChange}
                         />
                     </div>
@@ -41,7 +53,7 @@ const UserProfile = () => {
                         <select
                             id="sex"
                             name="sex"
-                            value={profile.sex}
+                            value={formData.sex}
                             onChange={handleChange}
                         >
                             <option value="">Select...</option>
@@ -56,7 +68,7 @@ const UserProfile = () => {
                             type="text"
                             id="occupation"
                             name="occupation"
-                            value={profile.occupation}
+                            value={formData.occupation}
                             onChange={handleChange}
                         />
                     </div>
