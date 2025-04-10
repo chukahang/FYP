@@ -1,3 +1,5 @@
+import StressLevelBar from './StressLevelBar';
+
 const StressAnalysis = ({ result }) => {
     const { text_analysis, acoustic_analysis, visual_analysis } = result?.detailed_results || {};
     const models = [
@@ -46,19 +48,8 @@ const StressAnalysis = ({ result }) => {
                                     </div>
                                     <div className="metric">
                                         <span>Stress Level:</span>
-                                        <div className="probability-bar">
-                                            <div 
-                                                className="probability-fill"
-                                                style={{ 
-                                                    width: `${(model.data?.probability || 0) * 100}%`,
-                                                    backgroundColor: model.color,
-                                                    opacity: 0.8
-                                                }}
-                                            />
-                                            <span className="probability-text">
-                                                {((model.data?.probability || 0) * 100).toFixed(1)}% likelihood of stress
-                                            </span>
-                                        </div>
+                                        <StressLevelBar percentage={model.data?.probability || 0} />
+                                        
                                         {model.data?.confidence_level && (
                                             <div className="confidence-level">
                                                 Confidence: <span className={`confidence-${model.data.confidence_level.toLowerCase()}`}>
