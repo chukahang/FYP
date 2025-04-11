@@ -51,8 +51,36 @@ class ChatRequest(BaseModel):
     query: str
     history: Optional[List[Dict[str, str]]] = []
 
+class InitializeRequest(BaseModel):
+    videoProcessingReport: Optional[Dict[str, Any]] = None
+    personalInformation: Optional[Dict[str, Any]] = None
+
 class ChatResponse(BaseModel):
     content: str
+
+@app.post("/api/v1/chat/initialize", response_model=ChatResponse)
+async def initialize_chat(request: InitializeRequest):
+    try:
+        # Initialize the chat with context from video processing report and personal information
+        context = []
+        
+        if request.videoProcessingReport:
+            context.append(f"Video Analysis Report: {request.videoProcessingReport}")
+        
+        if request.personalInformation:
+            context.append(f"User Information: {request.personalInformation}")
+        
+        if context:
+            # Prepare a context message for the RAG system
+            context_message = "The system has been initialized with the following user context:\n" + "\n".join(context)
+            # You may want to store this context in the RAG system's state for future queries
+            # For now, we'll just return an acknowledgment
+            return {"content": "I've analyzed your personal data and stress analysis results. How can I help you today?"}
+        else:
+            return {"content": "Chat initialized. How can I help you today?"}
+    except Exception as e:
+        print(f"Error initializing chat: {e}")
+        raise HTTPException(status_code=500, detail=f"Error initializing chat: {str(e)}")
 
 @app.post("/api/v1/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):

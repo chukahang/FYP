@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react';
 
-const useCache = (key, initialValue) => {
-    // Get initial value from localStorage or use provided initialValue
+const useCache = (key, defaultValue) => {
     const [value, setValue] = useState(() => {
         try {
-            const cached = localStorage.getItem(key);
-            return cached ? JSON.parse(cached) : initialValue;
-        } catch {
-            return initialValue;
+            // Get from localStorage on component mount
+            const cachedValue = localStorage.getItem(key);
+            return cachedValue !== null ? JSON.parse(cachedValue) : defaultValue;
+        } catch (error) {
+            console.error(`Error retrieving ${key} from cache:`, error);
+            return defaultValue;
         }
     });
 
-    // Update localStorage when value changes
     useEffect(() => {
+        // Update localStorage when value changes
         try {
-            localStorage.setItem(key, JSON.stringify(value));
+            if (value !== null && value !== undefined) {
+                localStorage.setItem(key, JSON.stringify(value));
+            } else {
+                localStorage.removeItem(key);
+            }
         } catch (error) {
-            console.error('Error saving to localStorage:', error);
+            console.error(`Error saving ${key} to cache:`, error);
         }
     }, [key, value]);
 
@@ -24,3 +29,29 @@ const useCache = (key, initialValue) => {
 };
 
 export default useCache;
+
+// Helper functions to directly access cached values
+export const getCachedValue = (key, defaultValue = null) => {
+    try {
+        const cachedValue = localStorage.getItem(key);
+        return cachedValue !== null ? JSON.parse(cachedValue) : defaultValue;
+    } catch (error) {
+        console.error(`Error retrieving ${key} from cache:`, error);
+        return defaultValue;
+    }
+};
+
+export const setCachedValue = (key, value) => {
+    try {
+        if (value !== null && value !== undefined) {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+        } else {
+            localStorage.removeItem(key);
+            return false;
+        }
+    } catch (error) {
+        console.error(`Error saving ${key} to cache:`, error);
+        return false;
+    }
+};

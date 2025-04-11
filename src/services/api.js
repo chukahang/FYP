@@ -58,3 +58,63 @@ export const sendChatMessage = async (message) => {
         throw new Error(`Failed to get response: ${error.message}`);
     }
 };
+
+// New method to initialize chat with context from video processing reports
+export const initializeChatWithContext = async (videoReport, personalInfo) => {
+    try {
+        // Construct a context object with all available information
+        const contextData = {
+            videoProcessingReport: videoReport || null,
+            personalInformation: personalInfo || null,
+        };
+        
+        // Send the initialization request to the backend
+        const response = await fetch(`${RAG_API_URL}/api/v1/chat/initialize`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contextData),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error initializing chat with context:', error);
+        throw new Error(`Failed to initialize chat: ${error.message}`);
+    }
+};
+
+// Get the latest video processing report from localStorage
+export const getLatestVideoReport = () => {
+    try {
+        // Try to get the job status from cache/localStorage
+        const jobStatusJSON = localStorage.getItem('jobStatus');
+        if (jobStatusJSON) {
+            return JSON.parse(jobStatusJSON);
+        }
+        return null;
+    } catch (error) {
+        console.error('Error getting latest video report:', error);
+        return null;
+    }
+};
+
+// Get personal information from localStorage (if stored)
+export const getPersonalInfo = () => {
+    try {
+        // Try to get personal info from localStorage (if you store it somewhere)
+        const personalInfoJSON = localStorage.getItem('personalInfo');
+        if (personalInfoJSON) {
+            return JSON.parse(personalInfoJSON);
+        }
+        return null;
+    } catch (error) {
+        console.error('Error getting personal information:', error);
+        return null;
+    }
+};
