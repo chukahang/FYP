@@ -1,0 +1,86 @@
+{
+  "model.layers.29.self_attn.q_proj.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096,
+      4096
+    ]
+  },
+  "model.layers.29.self_attn.o_proj.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096,
+      4096
+    ]
+  },
+  "model.layers.29.input_layernorm.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096
+    ]
+  },
+  "model.layers.29.post_attention_layernorm.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096
+    ]
+  },
+  "model.layers.30.self_attn.q_proj.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096,
+      4096
+    ]
+  },
+  "model.layers.30.self_attn.o_proj.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096,
+      4096
+    ]
+  },
+  "model.layers.30.input_layernorm.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096
+    ]
+  },
+  "model.layers.30.post_attention_layernorm.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096
+    ]
+  },
+  "model.layers.31.self_attn.q_proj.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096,
+      4096
+    ]
+  },
+  "model.layers.31.self_attn.o_proj.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096,
+      4096
+    ]
+  },
+  "model.layers.31.input_layernorm.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096
+    ]
+  },
+  "model.layers.31.post_attention_layernorm.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096
+    ]
+  },
+  "model.norm.weight": {
+    "dtype": "float16",
+    "shape": [
+      4096
+    ]
+  }
+}
