@@ -110,9 +110,6 @@ const ChatInterface = ({ videoReport, personalInfo, isInitialized }) => {
         <div className="chat-container">
             <div className="chat-header">
                 <h3>Mental Health AI Assistant</h3>
-                <p className="chat-subtitle">
-                    Powered by RAG LLM technology with mental health expertise
-                </p>
             </div>
             
             <div className="messages-container">
